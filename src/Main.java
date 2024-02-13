@@ -22,7 +22,6 @@ public class Main {
     }
 }
 
-//Печать интерфейса главного меню
     private static void printMenu() {
         System.out.println("\n Выберите действие: ");
         System.out.println("1 - Ввести количество шагов за определенный день");

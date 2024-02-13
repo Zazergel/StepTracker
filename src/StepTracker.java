@@ -1,9 +1,11 @@
 import java.util.Scanner;
+
 public class StepTracker {
     String[] monthsNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     MonthData[] monthToData;
     Scanner scanner;
     int intentSteps = 10000;
+
     public StepTracker(Scanner scanner) {
         this.scanner = scanner;
         monthToData = new MonthData[12];
@@ -12,7 +14,6 @@ public class StepTracker {
         }
     }
 
-    //Сохранение целевого кол-ва шагов
     void saveIntSteps() {
         System.out.println("Ваша текущая цель " + intentSteps + " шагов в день!");
         while (true) {
@@ -28,13 +29,11 @@ public class StepTracker {
         }
     }
 
-    //Отдает обьект указанного пользолвателем месяца
     public MonthData getMonths(int monthNum) {
 
         return monthToData[monthNum];
     }
 
-    //Вывод статистики шагов по дням
     public void printDays(int mh) {
 
         for (int i = 0; i < 30; i++) {
@@ -42,7 +41,6 @@ public class StepTracker {
         }
     }
 
-    //Поиск суммарного кол-ва шагов за указанный месяц
     public int printSumSteps(int mh) {
         int sumSteps = 0;
         for (int i = 0; i < 30; i++) {
@@ -52,7 +50,6 @@ public class StepTracker {
 
     }
 
-    //Поиск максимального кол-ва шагов в день за указанный месяц
     public int findMaxSteps(int mh) {
         int maxSteps = 0;
         for (int i = 0; i < 30; i++) {
@@ -63,15 +60,10 @@ public class StepTracker {
         return maxSteps;
     }
 
-    //Поиск среднего кол-ва шагов
     public int printMeanSteps(int sum) {
-
         return sum / 30;
     }
 
-    /* Поиск максимальное количество подряд идущих дней,
-     в течение которых количество шагов за день было равно или выше целевого.
-    */
     public int findBestSeries(int mh, int intentSteps) {
         int best = 0;
         int bestSave = 0;
@@ -88,14 +80,13 @@ public class StepTracker {
         return bestSave;
     }
 
-    //Печать интерфейса для воода целевого кол-ва шагов
     public void printSaveIntSteps() {
         System.out.println("Выберите месяц: 0-Jan, 1-Feb 2-Mar 3-Apr 4-May 5-Jun 6-Jul " +
-                "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
+                           "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
         int mh = scanner.nextInt();
         while (mh < 0 || mh > 11) {
             System.out.println("Ошибка! Выберите месяц: 0-Jan, 1-Feb 2-Mar 3-Apr 4-May 5-Jun 6-Jul " +
-                    "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
+                               "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
             mh = scanner.nextInt();
         }
         MonthData monthData = getMonths(mh);
@@ -112,17 +103,16 @@ public class StepTracker {
             System.out.println("Ошибка! Введите положительное число!");
             steps = scanner.nextInt();
         }
-        monthData.setStepsInDay(dayOfMonth,steps);
+        monthData.setStepsInDay(dayOfMonth, steps);
     }
 
-    //Печать интерфейса для вывода статистики за указанный месяц
     public void printStatistic() {
         System.out.println("Выберите месяц: 0-Jan, 1-Feb 2-Mar 3-Apr 4-May 5-Jun 6-Jul " +
-                "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
+                           "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
         int mh = scanner.nextInt();
         while (mh < 0 || mh > 11) {
             System.out.println("Ошибка! Выберите месяц: 0-Jan, 1-Feb 2-Mar 3-Apr 4-May 5-Jun 6-Jul " +
-                    "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
+                               "7-Aug 8-Sep 9-Oct 10-Nov 11-Dec");
             mh = scanner.nextInt();
         }
         int sumSteps = printSumSteps(mh);
@@ -130,12 +120,12 @@ public class StepTracker {
         System.out.println("Статистика за месяц " + getMonths(mh).name + ":");
         System.out.println("Всего шагов за данный месяц: " + sumSteps);
         System.out.println("Среднее количество шагов за указанный месяц: " +
-                printMeanSteps(sumSteps));
+                           printMeanSteps(sumSteps));
         System.out.println("Максимальное пройденное кол-во шагов за день: " + findMaxSteps(mh));
         System.out.println("Пройденная дистанция составила " + converter.convertToKm(sumSteps) + " км");
         System.out.println("Вы успешно сожгли " + converter.convertToCcal(sumSteps) + " килокалорий!");
         System.out.println("Вы достигали своей цели по кол-ву шагов " + findBestSeries(mh, intentSteps) +
-                " дней подряд!");
+                           " дней подряд!");
         printDays(mh);
     }
 }
